@@ -2,7 +2,7 @@ import json
 from src.Data_Analyzer import DataAnalyzer
 
 
-class manager_analyzer:
+class ManagerAnalyzer:
 
     @staticmethod
     def data_analyzed(df):
@@ -17,7 +17,7 @@ class manager_analyzer:
 
 
     @staticmethod
-    def save_to_json(data, path='result/data_analysis.json'):
+    def save_to_json(data, path='../result/results.json'):
         with open(path, 'w', encoding='utf-8') as file:
             json.dump(data, file, ensure_ascii=False, indent=4)
 
