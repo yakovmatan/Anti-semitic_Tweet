@@ -50,7 +50,7 @@ class DataAnalyzer:
          non_antisemitic = longest_tweets[3:]
 
          return {"antisemitic": antisemitic.tolist(),
-                 "non_antisemitic": non_antisemitic.to_dict()}
+                 "non_antisemitic": non_antisemitic.tolist()}
 
      #function to find the 10 most common words in all tweets
      def ten_most_common_words(self):
