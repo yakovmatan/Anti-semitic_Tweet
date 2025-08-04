@@ -1,8 +1,7 @@
-from src.Data_Analyzer import DataAnalyzer
 from src.Load_data import LoadData
 
 
-class Manager:
+class ManagerLoadData:
 
     @staticmethod
     def loading_csv_data():
