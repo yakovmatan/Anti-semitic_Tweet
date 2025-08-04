@@ -11,5 +11,5 @@ class ManagerCleaner:
 
     @staticmethod
     def save_to_csv(df):
-        df.to_csv('../result/tweets_dataset_cleaned.csv')
+        df.to_csv('../result/tweets_dataset_cleaned.csv', index=False)
 
