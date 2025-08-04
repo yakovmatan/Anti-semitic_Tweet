@@ -1,5 +1,4 @@
 from pandas import DataFrame
-from src.Load_data import LoadData
 import pandas as pd
 
 class DataAnalyzer:
@@ -10,8 +9,8 @@ class DataAnalyzer:
      def tweets_per_category(self):
          tweets_per_category = self.df['Biased'].value_counts()
 
-         antisemitic = tweets_per_category.loc[0]
-         non_antisemitic = tweets_per_category.loc[1]
+         antisemitic = tweets_per_category.loc[1]
+         non_antisemitic = tweets_per_category.loc[0]
          total = tweets_per_category.sum()
          unspecified = total - non_antisemitic - antisemitic
 
@@ -22,12 +21,13 @@ class DataAnalyzer:
                  }
 
      def average_tweet_length(self):
-         self.df['tweet_length'] = self.df['Text'].apply(lambda x: len(str(x).split()))
+         if 'tweet_length' not in self.df.columns:
+             self.df['tweet_length'] = self.df['Text'].apply(lambda x: len(str(x).split()))
 
          mean_length_tweet = self.df.groupby('Biased')['tweet_length'].mean()
 
-         antisemitic = mean_length_tweet.loc[0]
-         non_antisemitic = mean_length_tweet.loc[1]
+         antisemitic = mean_length_tweet.loc[1]
+         non_antisemitic = mean_length_tweet.loc[0]
          total = self.df['tweet_length'].mean()
 
 
@@ -36,11 +36,15 @@ class DataAnalyzer:
                  "total": float(total)
                 }
 
+     def the_longest_tweets(self):
+         if 'tweet_length' not in self.df.columns:
+             self.df['tweet_length'] = self.df['Text'].apply(lambda x: len(str(x).split()))
 
-if __name__ == '__main__':
-    l = LoadData('../Data/tweets_dataset.csv')
-    m = l.load()
+         self.df.sort_values(by=['Biased','tweet_length'], ascending=False, inplace=True)
+         longest_tweets = self.df.groupby('Biased')['Text'].head(3)
+         antisemitic = longest_tweets[:3]
+         non_antisemitic = longest_tweets[3:]
+         return {"antisemitic": antisemitic,
+                 "non_antisemitic": non_antisemitic}
 
-    d = DataAnalyzer(m)
-    j = d.average_tweet_length()
-    print(j)
+
