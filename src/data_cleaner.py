@@ -15,16 +15,12 @@ class DataCleaner:
          self.df['Text'] = self.df['Text'].astype(str).apply(lambda x: re.sub(r'[^\w\s]', '', x))
          return self
 
+     # Function that converts uppercase letters to lowercase
      def convert_to_lowercase(self):
          self.df['Text'] = self.df['Text'].astype(str).str.lower()
          return self
 
-
-
-if __name__ == '__main__':
-    df = LoadData('../Data/tweets_dataset.csv')
-    df = df.load()
-    df = DataCleaner(df)
-    df.removing_punctuation_marks()
-    df.convert_to_lowercase()
-    print(df.df['Text'])
+     #function to removing uncategorized tweets
+     def removing_uncategorized_tweets(self):
+         self.df = self.df[self.df['Biased'].isin([0, 1])]
+         return self
