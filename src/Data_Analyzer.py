@@ -3,8 +3,6 @@ import pandas as pd
 from collections import Counter
 import re
 
-from src.Load_data import LoadData
-
 
 class DataAnalyzer:
 
@@ -84,11 +82,7 @@ class DataAnalyzer:
 
 
 
-if __name__ == '__main__':
-    data = LoadData('../Data/tweets_dataset.csv')
-    df = data.load()
-    d = DataAnalyzer(df)
-    print(d.uppercase_words())
+
 
 
 
