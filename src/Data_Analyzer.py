@@ -63,7 +63,32 @@ class DataAnalyzer:
          total = [word for word, _ in word_counts.most_common(10)]
          return {'total': total}
 
+     #Function to count how many words are capitalized per category
+     def uppercase_words(self):
+         self.df['word_with_uppercase'] = self.df['Text'].apply(
+             lambda x: sum(1 for word in str(x).split() if word.isupper())
+         )
 
+         word_uppercase = self.df.groupby('Biased')['word_with_uppercase'].sum()
+         antisemitic = word_uppercase.loc[1]
+         non_antisemitic = word_uppercase.loc[0]
+         total = self.df['word_with_uppercase'].sum()
+
+         return {"antisemitic": int(antisemitic),
+                 "non_antisemitic": int(non_antisemitic),
+                 "total": int(total)
+                 }
+
+
+
+
+
+
+if __name__ == '__main__':
+    data = LoadData('../Data/tweets_dataset.csv')
+    df = data.load()
+    d = DataAnalyzer(df)
+    print(d.uppercase_words())
 
 
 
