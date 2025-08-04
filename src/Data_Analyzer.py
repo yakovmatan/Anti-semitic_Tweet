@@ -55,8 +55,7 @@ class DataAnalyzer:
      #function to find the 10 most common words in all tweets
      def ten_most_common_words(self):
          all_text = ' '.join(self.df['Text'].dropna().astype(str))
-         cleaned_text = re.sub(r'[^\w\s]', '', all_text.lower())
-         words = cleaned_text.split()
+         words = all_text.split()
          word_counts = Counter(words)
          total = [word for word, _ in word_counts.most_common(10)]
          return {'total': total}
