@@ -1,8 +1,6 @@
 from pandas import DataFrame
 import re
 
-from src.Load_data import LoadData
-
 
 class DataCleaner:
 
@@ -23,4 +21,9 @@ class DataCleaner:
      #function to removing uncategorized tweets
      def removing_uncategorized_tweets(self):
          self.df = self.df[self.df['Biased'].isin([0, 1])]
+         return self
+
+     #function to get the relevant columns from the data file
+     def get_the_relevant_columns(self):
+         self.df.drop(['TweetID', 'Username', 'CreateDate', 'Keyword'], axis='columns', inplace=True)
          return self
